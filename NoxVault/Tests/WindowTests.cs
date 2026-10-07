@@ -41,6 +41,20 @@ internal sealed partial class MainWindow
 
     internal void RefreshGateForTest() => ShowVault();
 
+    internal void TestSidebar(Action<bool, string> check, Action<bool> render)
+    {
+        for (int step = 0; step < 6; step++)
+        {
+            var previous = sidebar;
+            ToggleSidebar();
+            check(root.Children.Count == 2 && previous?.Parent == null && sidebar?.Parent == root,
+                $"Sidebar toggle {step + 1} replaces the old navigation without duplicate layers");
+            check(root.ColumnDefinitions[0].Width.Value == SidebarWidth,
+                $"Sidebar toggle {step + 1} applies the folded or expanded width");
+            if (step >= 4) render(sidebarCollapsed);
+        }
+    }
+
     VaultData OpenForTest()
     {
         session.Data = session.Vault.Open(LifecyclePassword);
