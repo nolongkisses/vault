@@ -55,8 +55,9 @@ internal sealed partial class MainWindow
     {
         sidebarCollapsed = !sidebarCollapsed;
         if (sidebar == null) return;
+        var previous = sidebar;
         var replacement = BuildSidebar();
-        root.Children.Remove(sidebar);
+        root.Children.Remove(previous);
         root.Children.Insert(0, replacement);
         sidebar = replacement;
         captionContent.Content = SidebarCaption();

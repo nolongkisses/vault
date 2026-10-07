@@ -35,6 +35,7 @@ internal static class WindowFrame
             CaptionHeight = Theme.Caption, ResizeBorderThickness = new Thickness(ResizeBorder),
             GlassFrameThickness = new Thickness(0), CornerRadius = new CornerRadius(WindowRadius), UseAeroCaptionButtons = false,
         });
+        window.SourceInitialized += (_, _) => WindowBounds.Attach(window);
         layers.RowDefinitions.Add(new RowDefinition { Height = new GridLength(Theme.Caption) });
         layers.RowDefinitions.Add(new RowDefinition());
         Grid.SetRow(body, 1);

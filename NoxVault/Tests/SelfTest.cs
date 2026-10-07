@@ -53,6 +53,7 @@ internal static class SelfTest
             FeatureTests.Benchmark(outDir, Check);
             BrandExport.Save(outDir);
             Renders.Run(test, restored, includeNative);
+            MainWindow.TestMaximizedFrame(Check);
             File.WriteAllText(reportPath, string.Join(Environment.NewLine, passed));
         }
         finally { Directory.Delete(folder, true); }

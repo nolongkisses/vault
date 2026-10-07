@@ -47,6 +47,8 @@ internal static class Renders
 
     static void Shell(TestContext test, MainWindow preview, string suffix)
     {
+        preview.TestSidebar(test.Check, folded => Save(preview, 1180, 780,
+            Path.Combine(test.OutDir, "sidebar-" + (folded ? "folded" : "expanded") + suffix + ".png")));
         Save(preview, 1180, 780, Path.Combine(test.OutDir, "vault-preview" + suffix + ".png"));
         Save(preview, 980, 660, Path.Combine(test.OutDir, "vault-compact" + suffix + ".png"));
         Save(preview, 1920, 1080, Path.Combine(test.OutDir, "vault-fullscreen" + suffix + ".png"));

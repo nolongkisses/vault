@@ -41,6 +41,64 @@ internal sealed partial class MainWindow
 
     internal void RefreshGateForTest() => ShowVault();
 
+    internal static void TestMaximizedFrame(Action<bool, string> check)
+    {
+        foreach (string theme in new[] { "Dunkel", "Hell" })
+        {
+            Theme.Apply(theme);
+            var window = new Window { Title = "Synthetic frame check", Width = 1180, Height = 780, ShowActivated = false };
+            var frame = new Grid();
+            var body = new Grid();
+            frame.Children.Add(body);
+            window.Content = frame;
+            WindowFrame.Attach(window, frame, body).Content = new TextBlock { Text = "vault" };
+            try
+            {
+                window.Show();
+                var buttons = frame.Children.OfType<StackPanel>().Single().Children.OfType<Button>().ToArray();
+                Click(buttons[1]);
+                Wait(TimeSpan.FromMilliseconds(100));
+                window.UpdateLayout();
+                check(window.WindowState == WindowState.Maximized, theme + " caption maximizes the native window");
+                var work = System.Windows.Forms.Screen.FromHandle(new WindowInteropHelper(window).Handle).WorkingArea;
+                foreach (var button in buttons)
+                {
+                    var top = button.PointToScreen(new Point());
+                    var bottom = button.PointToScreen(new Point(button.ActualWidth, button.ActualHeight));
+                    check(top.X >= work.Left && top.Y >= work.Top && bottom.X <= work.Right && bottom.Y <= work.Bottom,
+                        theme + " maximized caption keeps " + button.ToolTip + " inside the monitor work area");
+                }
+                Click(buttons[1]);
+                Wait(TimeSpan.FromMilliseconds(100));
+                check(window.WindowState == WindowState.Normal, theme + " caption restores the maximized window");
+                Click(buttons[0]);
+                Wait(TimeSpan.FromMilliseconds(100));
+                check(window.WindowState == WindowState.Minimized, theme + " caption minimizes the window");
+                SystemCommands.RestoreWindow(window);
+                Wait(TimeSpan.FromMilliseconds(100));
+                check(window.WindowState == WindowState.Normal, theme + " minimized window restores normally");
+                Click(buttons[2]);
+                check(!window.IsVisible, theme + " caption closes the native window");
+            }
+            finally { window.Close(); }
+        }
+        Theme.Apply("Dunkel");
+    }
+
+    internal void TestSidebar(Action<bool, string> check, Action<bool> render)
+    {
+        for (int step = 0; step < 6; step++)
+        {
+            var previous = sidebar;
+            ToggleSidebar();
+            check(root.Children.Count == 2 && previous?.Parent == null && sidebar?.Parent == root,
+                $"Sidebar toggle {step + 1} replaces the old navigation without duplicate layers");
+            check(root.ColumnDefinitions[0].Width.Value == SidebarWidth,
+                $"Sidebar toggle {step + 1} applies the folded or expanded width");
+            if (step >= 4) render(sidebarCollapsed);
+        }
+    }
+
     VaultData OpenForTest()
     {
         session.Data = session.Vault.Open(LifecyclePassword);
