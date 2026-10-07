@@ -13,7 +13,7 @@
     <ImplicitUsings>disable</ImplicitUsings>
     <AssemblyName>NoxVault</AssemblyName>
     <RootNamespace>NoxVault</RootNamespace>
-    <Version>1.2.7</Version>
+    <Version>1.2.8</Version>
     <AssemblyTitle>vault</AssemblyTitle>
     <Company>vault</Company>
     <Product>vault</Product>

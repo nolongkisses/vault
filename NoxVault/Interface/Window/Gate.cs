@@ -62,7 +62,7 @@ internal sealed partial class MainWindow
         var brand = new StackPanel { Orientation = Orientation.Horizontal, Margin = new Thickness(Theme.S6, 0, 0, 0) };
         brand.Children.Add(Brand.Icon(Theme.IconSize));
         var name = Text("vault", TextRole.Head, bold: true);
-        name.Margin = new Thickness(Theme.S4, 0, 0, 0);
+        name.Margin = new Thickness(Theme.S4, 0, 0, Theme.S1);
         brand.Children.Add(name);
         return new Grid { Width = width, Children = { brand } };
     }

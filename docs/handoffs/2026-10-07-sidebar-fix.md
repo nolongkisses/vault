@@ -17,4 +17,6 @@ Der Austausch hält jetzt die bisherige Seitenleiste fest und entfernt genau die
 
 ## Stand
 
-Version 1.2.7 enthält den Sidebar-Fix. Speicherformat und Ausfülllogik sind unverändert.
+Version 1.2.8 enthält den Sidebar-Fix und richtet den Schriftzug im Fenstertitel optisch zur Mitte des Icons aus.
+Die Textzeile berücksichtigt dabei die untere Schriftreserve mit einem vorhandenen Abstandstoken.
+Speicherformat und Ausfülllogik sind unverändert.
