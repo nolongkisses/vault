@@ -1,0 +1,61 @@
+# .NET builds, local SDKs, published apps and generated previews/tests
+**/[Bb]in/
+**/[Oo]bj/
+/dist/
+/artifacts/
+TestResults/
+*.trx
+*.coverage
+*.coveragexml
+*.nupkg
+*.snupkg
+
+# IDE and machine-local settings
+.vs/
+.idea/
+.vscode/
+*.user
+*.suo
+*.sln.docstates
+*.pubxml.user
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Vaults, encrypted backups, remembered sessions and local preferences
+*.nox
+*.nox.*
+*.session
+*.session.*
+*.quickfill
+*.quickfill.*
+*.db
+*.sqlite
+*.sqlite3
+*.dump
+settings.json
+*.backup
+*.bak
+*.tmp
+*.log
+*.dmp
+
+# Secrets, credentials and private key material
+.env
+.env.*
+!.env.example
+secrets.json
+appsettings.*.local.json
+*.pfx
+*.p12
+*.pem
+*.key
+id_rsa*
+id_ed25519*
+credentials.json
+
+# Local exports and archives
+/backups/
+/exports/
+*.zip
+*.7z
